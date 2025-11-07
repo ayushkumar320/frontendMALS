@@ -88,7 +88,7 @@ export function LandingPage() {
       </div>
 
       {/* Yellow Diagonal Bottom Section */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-r from-yellow-400 to-yellow-600 transform -skew-y-2 origin-bottom-left"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-r from-yellow-400 to-yellow-600 transform -skew-y-2 origin-bottom-left"></div>
     </section>
   );
 }
