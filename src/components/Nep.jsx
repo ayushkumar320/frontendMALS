@@ -268,14 +268,16 @@ export const NEP2020 = memo(function NEP2020() {
         if (cards.length === 4 && details.length === 4) {
           // Set initial states
           gsap.set(cards.slice(1), {
-            scale: 0.9,
-            opacity: 0.5,
+            scale: 0.95,
+            opacity: 0.8,
             boxShadow: 'none',
+            border: '2px solid transparent',
           });
           gsap.set(cards[0], {
             scale: 1,
             opacity: 1,
-            boxShadow: '0 10px 25px rgba(251, 191, 36, 0.2)',
+            boxShadow: '0 10px 25px rgba(251, 191, 36, 0.3)',
+            border: '2px solid rgb(251, 191, 36)',
           });
 
           gsap.set(details.slice(1), { opacity: 0, y: 15 });
@@ -315,14 +317,16 @@ export const NEP2020 = memo(function NEP2020() {
                   gsap.to(card, {
                     scale: 1,
                     opacity: 1,
-                    boxShadow: '0 10px 25px rgba(251, 191, 36, 0.2)',
+                    boxShadow: '0 10px 25px rgba(251, 191, 36, 0.3)',
+                    border: '2px solid rgb(251, 191, 36)',
                     duration: 0.3,
                   });
                 } else {
                   gsap.to(card, {
-                    scale: 0.9,
-                    opacity: 0.5,
+                    scale: 0.95,
+                    opacity: 0.8,
                     boxShadow: 'none',
+                    border: '2px solid transparent',
                     duration: 0.3,
                   });
                 }
@@ -764,31 +768,45 @@ export const NEP2020 = memo(function NEP2020() {
                   <div className="space-y-4">
                     <div
                       ref={(el) => (yearCardRefs.current[0] = el)}
-                      className="bg-white/20 backdrop-blur-sm p-6 rounded-xl"
+                      className="bg-white p-6 rounded-xl"
                     >
-                      <div className="text-2xl font-bold mb-2">Year 1</div>
-                      <p className="text-sm">Certificate - Exit Option</p>
+                      <div className="text-2xl font-bold mb-2 text-gray-900">
+                        Year 1
+                      </div>
+                      <p className="text-sm text-gray-700">
+                        Certificate - Exit Option
+                      </p>
                     </div>
                     <div
                       ref={(el) => (yearCardRefs.current[1] = el)}
-                      className="bg-white/20 backdrop-blur-sm p-6 rounded-xl"
+                      className="bg-white p-6 rounded-xl"
                     >
-                      <div className="text-2xl font-bold mb-2">Year 2</div>
-                      <p className="text-sm">Diploma - Exit Option</p>
+                      <div className="text-2xl font-bold mb-2 text-gray-900">
+                        Year 2
+                      </div>
+                      <p className="text-sm text-gray-700">
+                        Diploma - Exit Option
+                      </p>
                     </div>
                     <div
                       ref={(el) => (yearCardRefs.current[2] = el)}
-                      className="bg-white/20 backdrop-blur-sm p-6 rounded-xl"
+                      className="bg-white p-6 rounded-xl"
                     >
-                      <div className="text-2xl font-bold mb-2">Year 3</div>
-                      <p className="text-sm">Bachelor's Degree - Exit Option</p>
+                      <div className="text-2xl font-bold mb-2 text-gray-900">
+                        Year 3
+                      </div>
+                      <p className="text-sm text-gray-700">
+                        Bachelor's Degree - Exit Option
+                      </p>
                     </div>
                     <div
                       ref={(el) => (yearCardRefs.current[3] = el)}
-                      className="bg-white/30 backdrop-blur-sm p-6 rounded-xl border-2 border-white"
+                      className="bg-white p-6 rounded-xl"
                     >
-                      <div className="text-2xl font-bold mb-2">Year 4</div>
-                      <p className="text-sm">
+                      <div className="text-2xl font-bold mb-2 text-gray-900">
+                        Year 4
+                      </div>
+                      <p className="text-sm text-gray-700">
                         Bachelor's with Honours/Research
                       </p>
                     </div>
