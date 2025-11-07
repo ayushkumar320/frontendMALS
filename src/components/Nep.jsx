@@ -345,33 +345,55 @@ export function NEP2020() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
             <div
               ref={(el) => (statsRefs.current[0] = el)}
-              className="text-center p-8 bg-yellow-50 rounded-2xl transform hover:scale-105 transition-all duration-300"
+              className="text-center p-8 bg-yellow-50 rounded-2xl transform hover:scale-105 transition-all duration-500 cursor-pointer hover:shadow-xl"
+              style={{ perspective: '1000px' }}
             >
-              <div className="text-5xl font-bold text-yellow-500 mb-2">4</div>
-              <p className="text-gray-700 font-semibold">
-                Year Degree Programs
-              </p>
-              <p className="text-sm text-gray-600 mt-2">
-                With multiple exit options
-              </p>
+              <div
+                className="transition-transform duration-500 hover:rotate-y-6 hover:rotate-x-3"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <div className="text-5xl font-bold text-yellow-500 mb-2">4</div>
+                <p className="text-gray-700 font-semibold">
+                  Year Degree Programs
+                </p>
+                <p className="text-sm text-gray-600 mt-2">
+                  With multiple exit options
+                </p>
+              </div>
             </div>
             <div
               ref={(el) => (statsRefs.current[1] = el)}
-              className="text-center p-8 bg-yellow-50 rounded-2xl transform hover:scale-105 transition-all duration-300"
+              className="text-center p-8 bg-yellow-50 rounded-2xl transform hover:scale-105 transition-all duration-500 cursor-pointer hover:shadow-xl"
+              style={{ perspective: '1000px' }}
             >
-              <div className="text-5xl font-bold text-yellow-500 mb-2">50%</div>
-              <p className="text-gray-700 font-semibold">Gross Enrollment</p>
-              <p className="text-sm text-gray-600 mt-2">Target by 2035</p>
+              <div
+                className="transition-transform duration-500 hover:rotate-y-6 hover:rotate-x-3"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <div className="text-5xl font-bold text-yellow-500 mb-2">
+                  50%
+                </div>
+                <p className="text-gray-700 font-semibold">Gross Enrollment</p>
+                <p className="text-sm text-gray-600 mt-2">Target by 2035</p>
+              </div>
             </div>
             <div
               ref={(el) => (statsRefs.current[2] = el)}
-              className="text-center p-8 bg-yellow-50 rounded-2xl transform hover:scale-105 transition-all duration-300"
+              className="text-center p-8 bg-yellow-50 rounded-2xl transform hover:scale-105 transition-all duration-500 cursor-pointer hover:shadow-xl"
+              style={{ perspective: '1000px' }}
             >
-              <div className="text-5xl font-bold text-yellow-500 mb-2">
-                100+
+              <div
+                className="transition-transform duration-500 hover:rotate-y-6 hover:rotate-x-3"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <div className="text-5xl font-bold text-yellow-500 mb-2">
+                  100+
+                </div>
+                <p className="text-gray-700 font-semibold">
+                  Course Combinations
+                </p>
+                <p className="text-sm text-gray-600 mt-2">Across disciplines</p>
               </div>
-              <p className="text-gray-700 font-semibold">Course Combinations</p>
-              <p className="text-sm text-gray-600 mt-2">Across disciplines</p>
             </div>
           </div>
         </div>
@@ -395,15 +417,21 @@ export function NEP2020() {
               <div
                 key={index}
                 ref={(el) => (featureRefs.current[index] = el)}
-                className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+                className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 cursor-pointer"
+                style={{ perspective: '1000px' }}
               >
-                <div className="text-5xl mb-4">{feature.icon}</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {feature.description}
-                </p>
+                <div
+                  className="transition-transform duration-500 hover:rotate-y-6 hover:rotate-x-3"
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  <div className="text-5xl mb-4">{feature.icon}</div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

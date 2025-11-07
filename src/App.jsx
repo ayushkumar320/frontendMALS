@@ -3,6 +3,8 @@ import { TopAnimatedLogo } from './components/TopAnimatedLogo';
 import { LandingPage } from './components/LandingPage';
 import { NoNetwork, useNetworkStatus } from './components/NoNetwork';
 import { NEP2020 } from './components/Nep';
+import Navbar from './components/navbar';
+
 function App() {
   const isOnline = useNetworkStatus();
 
@@ -11,14 +13,21 @@ function App() {
   }
 
   return (
-    <div>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-transparent block">
+    <div className="relative">
+      {/* Fixed Top Logo Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
         <TopAnimatedLogo />
       </header>
-      <main className="pt-40">
+
+      {/* Fixed Right Side Navbar */}
+      <Navbar />
+
+      {/* Main Content - Add right padding to account for navbar */}
+      <main className="pt-40 pr-20">
+        {/* Page 1: Landing Page */}
         <LandingPage />
-      </main>
-      <main>
+
+        {/* Page 2: NEP 2020 */}
         <NEP2020 />
       </main>
     </div>
