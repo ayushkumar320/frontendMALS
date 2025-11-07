@@ -3,6 +3,7 @@ import { lazy, Suspense, useMemo } from 'react';
 import { useNetworkStatus } from './components/NoNetwork';
 import { SkeletonLoader } from './components/SkeletonLoader';
 import { LazyLoadComponent } from './components/LazyLoadComponent';
+import ChatBot from './components/ChatBot';
 
 // Lazy load components
 const TopAnimatedLogo = lazy(() =>
@@ -78,6 +79,9 @@ function App() {
       <Suspense fallback={<div className="h-64" />}>
         <Footer />
       </Suspense>
+
+      {/* ChatBot - Always available */}
+      <ChatBot />
     </div>
   );
 }
