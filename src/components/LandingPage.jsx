@@ -415,15 +415,32 @@ export function LandingPage() {
           ></p>
 
           <div ref={buttonsRef} className="flex gap-4 flex-wrap">
-            <button className="px-8 py-4 bg-yellow-500 text-white font-bold rounded-lg hover:bg-yellow-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="px-8 py-4 bg-yellow-500 text-white font-bold rounded-lg hover:bg-yellow-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
               WELCOME TO CURRICULAFLEX
             </button>
-            <button className="px-8 py-4 border-2 border-yellow-500 text-yellow-600 font-bold rounded-lg hover:bg-yellow-500 hover:text-white transition-all duration-300 shadow-md">
+            <a
+              href="#nep2020"
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .getElementById('nep2020')
+                  ?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-8 py-4 border-2 border-yellow-500 text-yellow-600 font-bold rounded-lg hover:bg-yellow-500 hover:text-white transition-all duration-300 shadow-md inline-block"
+            >
               LATEST NEWS
-            </button>
-            <button className="px-8 py-4 border-2 border-gray-300 text-gray-700 font-bold rounded-lg hover:border-yellow-500 hover:text-yellow-600 transition-all duration-300">
+            </a>
+            <a
+              href="https://github.com/ayushkumar320/frontendMALS"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 border-2 border-gray-300 text-gray-700 font-bold rounded-lg hover:border-yellow-500 hover:text-yellow-600 transition-all duration-300 inline-block"
+            >
               GET STARTED
-            </button>
+            </a>
           </div>
         </div>
       </div>

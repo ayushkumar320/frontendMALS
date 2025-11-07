@@ -269,7 +269,7 @@ export function NEP2020() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div id="nep2020" className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center bg-linear-to-br from-yellow-50 to-white overflow-hidden">
         {/* Decorative elements */}
@@ -293,12 +293,26 @@ export function NEP2020() {
               className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed"
             ></p>
             <div className="flex gap-4 justify-center flex-wrap">
-              <button className="px-8 py-4 bg-yellow-500 text-white font-semibold rounded-lg shadow-lg hover:bg-yellow-600 transition-all duration-300 transform hover:scale-105">
+              <a
+                href="#benefits"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document
+                    .getElementById('benefits')
+                    ?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-8 py-4 bg-yellow-500 text-white font-semibold rounded-lg shadow-lg hover:bg-yellow-600 transition-all duration-300 transform hover:scale-105 inline-block"
+              >
                 Explore Benefits
-              </button>
-              <button className="px-8 py-4 border-2 border-yellow-500 text-yellow-600 font-semibold rounded-lg hover:bg-yellow-50 transition-all duration-300">
+              </a>
+              <a
+                href="https://www.education.gov.in/sites/upload_files/mhrd/files/NEP_Final_English_0.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 border-2 border-yellow-500 text-yellow-600 font-semibold rounded-lg hover:bg-yellow-50 transition-all duration-300 inline-block"
+              >
                 Learn More
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -439,7 +453,7 @@ export function NEP2020() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-white">
+      <section id="benefits" className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
