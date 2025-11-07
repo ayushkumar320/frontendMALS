@@ -1,22 +1,25 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback, memo } from 'react';
 
-function Navbar() {
+const Navbar = memo(function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const searchInputRef = useRef(null);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
 
   // Remove all highlights
   const removeHighlights = () => {
     const highlights = document.querySelectorAll('.search-highlight');
-    highlights.forEach(highlight => {
+    highlights.forEach((highlight) => {
       const parent = highlight.parentNode;
       if (parent) {
-        parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+        parent.replaceChild(
+          document.createTextNode(highlight.textContent),
+          highlight
+        );
         parent.normalize();
       }
     });
@@ -55,41 +58,52 @@ function Navbar() {
 
     let firstHighlight = null;
 
-    nodesToProcess.forEach(textNode => {
+    nodesToProcess.forEach((textNode) => {
       const text = textNode.textContent;
       const lowerText = text.toLowerCase();
-      
+
       if (lowerText.includes(searchText)) {
         const fragment = document.createDocumentFragment();
         let lastIndex = 0;
-        const regex = new RegExp(`(${searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-        
+        const regex = new RegExp(
+          `(${searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`,
+          'gi'
+        );
+
         let match;
         while ((match = regex.exec(text)) !== null) {
           // Add text before match
           if (match.index > lastIndex) {
-            fragment.appendChild(document.createTextNode(text.substring(lastIndex, match.index)));
+            fragment.appendChild(
+              document.createTextNode(text.substring(lastIndex, match.index))
+            );
           }
-          
+
           // Add highlighted span
           const highlight = document.createElement('span');
-          highlight.className = 'search-highlight bg-yellow-300 text-gray-900 px-0.5 rounded';
-          highlight.textContent = text.substring(match.index, match.index + match[0].length);
+          highlight.className =
+            'search-highlight bg-yellow-300 text-gray-900 px-0.5 rounded';
+          highlight.textContent = text.substring(
+            match.index,
+            match.index + match[0].length
+          );
           fragment.appendChild(highlight);
-          
+
           // Store the first highlight for scrolling
           if (!firstHighlight) {
             firstHighlight = highlight;
           }
-          
+
           lastIndex = match.index + match[0].length;
         }
-        
+
         // Add remaining text
         if (lastIndex < text.length) {
-          fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+          fragment.appendChild(
+            document.createTextNode(text.substring(lastIndex))
+          );
         }
-        
+
         if (fragment.childNodes.length > 0) {
           textNode.parentNode.replaceChild(fragment, textNode);
         }
@@ -100,9 +114,13 @@ function Navbar() {
     if (firstHighlight) {
       setTimeout(() => {
         // Query the DOM to get the actual highlighted element
-        const firstHighlightElement = document.querySelector('.search-highlight');
+        const firstHighlightElement =
+          document.querySelector('.search-highlight');
         if (firstHighlightElement) {
-          firstHighlightElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          firstHighlightElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+          });
         }
       }, 150);
     }
@@ -141,11 +159,14 @@ function Navbar() {
     if (item === 'Home') {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
       setIsOpen(false); // Close the menu after clicking
     } else if (item === 'About us') {
-      window.open('https://www.education.gov.in/sites/upload_files/mhrd/files/NEP_Final_English_0.pdf', '_blank');
+      window.open(
+        'https://www.education.gov.in/sites/upload_files/mhrd/files/NEP_Final_English_0.pdf',
+        '_blank'
+      );
     } else if (item === 'Information') {
       const nepSection = document.getElementById('nep2020');
       if (nepSection) {
@@ -155,7 +176,7 @@ function Navbar() {
     } else if (item === 'Contact us') {
       window.scrollTo({
         top: document.documentElement.scrollHeight,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
       setIsOpen(false); // Close the menu after clicking
     }
@@ -191,7 +212,7 @@ function Navbar() {
           <div className="pt-20 pl-8 min-w-[200px]">
             <ul className="space-y-6">
               {menuItems.map((item, index) => (
-                <li 
+                <li
                   key={index}
                   className={`transition-all duration-500 ease-out ${
                     isOpen
@@ -199,7 +220,7 @@ function Navbar() {
                       : 'opacity-0 -translate-x-8'
                   }`}
                   style={{
-                    transitionDelay: isOpen ? `${700 + index * 100}ms` : '0ms'
+                    transitionDelay: isOpen ? `${700 + index * 100}ms` : '0ms',
                   }}
                 >
                   <a
@@ -319,7 +340,7 @@ function Navbar() {
 
       {/* Small Search Popup - Top Right */}
       {isSearchOpen && (
-        <div className="fixed top-4 right-4 z-[200] search-popup">
+        <div className="fixed top-4 right-4 z-200 search-popup">
           <div className="bg-white rounded-lg shadow-xl border border-gray-200 p-3 w-64">
             <div className="flex items-center gap-2">
               <svg
@@ -380,6 +401,6 @@ function Navbar() {
       )}
     </>
   );
-}
+});
 
 export default Navbar;

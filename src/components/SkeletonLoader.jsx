@@ -1,4 +1,8 @@
-export function SkeletonLoader({ layout = 'landing' }) {
+import { memo } from 'react';
+
+export const SkeletonLoader = memo(function SkeletonLoader({
+  layout = 'landing',
+}) {
   // Landing Page Skeleton - Matches your page design
   const LandingPageSkeleton = () => (
     <section className="relative min-h-screen bg-white overflow-hidden">
@@ -218,4 +222,4 @@ export function SkeletonLoader({ layout = 'landing' }) {
   }
 
   return null;
-}
+});

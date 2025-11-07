@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 
-export function NoNetwork() {
+export const NoNetwork = memo(function NoNetwork() {
   return (
     <div className="fixed inset-0 bg-linear-to-br from-gray-50 to-gray-100 z-999 flex items-center justify-center p-4">
       <div className="max-w-2xl w-full text-center">
@@ -81,7 +81,7 @@ export function NoNetwork() {
       </div>
     </div>
   );
-}
+});
 
 // Hook to detect online/offline status
 export function useNetworkStatus() {

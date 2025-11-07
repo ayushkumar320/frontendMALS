@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useMemo, memo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function NEP2020() {
+export const NEP2020 = memo(function NEP2020() {
+  const [isComponentReady, setIsComponentReady] = useState(false);
   const heroTitleRef = useRef(null);
   const heroSubtitleRef = useRef(null);
   const whatIsNEPTitleRef = useRef(null);
@@ -22,7 +23,15 @@ export function NEP2020() {
   const yearIllustrationRefs = useRef([]);
   const benefitsSectionRef = useRef(null);
 
+  // Mark component as ready after mount
   useEffect(() => {
+    setIsComponentReady(true);
+  }, []);
+
+  useEffect(() => {
+    // Only initialize GSAP animations when component is ready
+    if (!isComponentReady) return;
+
     // Clean up any existing ScrollTriggers
     const ctx = gsap.context(() => {
       // Hero title typewriter animation
@@ -356,119 +365,129 @@ export function NEP2020() {
     return () => {
       ctx.revert(); // Clean up all animations in this context
     };
-  }, []);
+  }, [isComponentReady]); // Re-run when component is ready
 
-  const features = [
-    {
-      title: 'Flexible Learning Pathways',
-      description:
-        'Multiple entry and exit points allowing students to take breaks and re-enter education at their convenience.',
-      icon: '🎓',
-    },
-    {
-      title: 'Multidisciplinary Education',
-      description:
-        'Freedom to choose subjects across streams, promoting holistic development and diverse skill acquisition.',
-      icon: '📚',
-    },
-    {
-      title: 'Credit-Based System',
-      description:
-        'Academic Bank of Credits (ABC) enables credit transfer and accumulation across institutions.',
-      icon: '💳',
-    },
-    {
-      title: 'Skill Development',
-      description:
-        'Integration of vocational education with higher education for industry-ready graduates.',
-      icon: '🛠️',
-    },
-    {
-      title: 'Research & Innovation',
-      description:
-        'Emphasis on research at all levels with dedicated funding and infrastructure support.',
-      icon: '🔬',
-    },
-    {
-      title: 'Technology Integration',
-      description:
-        'Digital learning platforms and online resources for accessible education nationwide.',
-      icon: '💻',
-    },
-  ];
+  // Memoize static data to prevent recreation on every render
+  const features = useMemo(
+    () => [
+      {
+        title: 'Flexible Learning Pathways',
+        description:
+          'Multiple entry and exit points allowing students to take breaks and re-enter education at their convenience.',
+        icon: '🎓',
+      },
+      {
+        title: 'Multidisciplinary Education',
+        description:
+          'Freedom to choose subjects across streams, promoting holistic development and diverse skill acquisition.',
+        icon: '📚',
+      },
+      {
+        title: 'Credit-Based System',
+        description:
+          'Academic Bank of Credits (ABC) enables credit transfer and accumulation across institutions.',
+        icon: '💳',
+      },
+      {
+        title: 'Skill Development',
+        description:
+          'Integration of vocational education with higher education for industry-ready graduates.',
+        icon: '🛠️',
+      },
+      {
+        title: 'Research & Innovation',
+        description:
+          'Emphasis on research at all levels with dedicated funding and infrastructure support.',
+        icon: '🔬',
+      },
+      {
+        title: 'Technology Integration',
+        description:
+          'Digital learning platforms and online resources for accessible education nationwide.',
+        icon: '💻',
+      },
+    ],
+    []
+  );
 
-  const benefits = [
-    'Learn at your own pace with flexible timelines',
-    'Explore multiple disciplines before specialization',
-    'Earn while you learn with internship credits',
-    'Seamless credit transfer between institutions',
-    'Global recognition with international standards',
-    'Practical skills alongside theoretical knowledge',
-  ];
+  const benefits = useMemo(
+    () => [
+      'Learn at your own pace with flexible timelines',
+      'Explore multiple disciplines before specialization',
+      'Earn while you learn with internship credits',
+      'Seamless credit transfer between institutions',
+      'Global recognition with international standards',
+      'Practical skills alongside theoretical knowledge',
+    ],
+    []
+  );
 
   // Year-wise details for the pinned walkthrough
-  const yearDetails = [
-    {
-      year: 'Year 1',
-      title: 'Certificate – Get Started Quickly',
-      icon: '📚',
-      illustration: [
-        { icon: '📖', label: 'Core Subjects' },
-        { icon: '🔍', label: 'Explore Fields' },
-        { icon: '🎯', label: 'Foundation' },
-      ],
-      points: [
-        'Build a strong foundation with core subjects',
-        'Try electives from different disciplines',
-        'Earn a Certificate with an exit option if needed',
-      ],
-    },
-    {
-      year: 'Year 2',
-      title: 'Diploma – Skill Up & Specialize',
-      icon: '🛠️',
-      illustration: [
-        { icon: '⚡', label: 'Specialize' },
-        { icon: '💼', label: 'Industry Skills' },
-        { icon: '🎓', label: 'Diploma Ready' },
-      ],
-      points: [
-        'Focus tighter on your chosen track',
-        'Add in-demand vocational/industry skills',
-        'Diploma exit option to start working earlier',
-      ],
-    },
-    {
-      year: 'Year 3',
-      title: "Bachelor's Degree – Career Ready",
-      icon: '🚀',
-      illustration: [
-        { icon: '💻', label: 'Projects' },
-        { icon: '🏢', label: 'Internships' },
-        { icon: '🎖️', label: 'Degree Complete' },
-      ],
-      points: [
-        'Complete a full UG program with projects/internships',
-        'Eligible for most jobs and higher studies',
-        'Exit option available after a recognized degree',
-      ],
-    },
-    {
-      year: 'Year 4',
-      title: 'Honours/Research – Go Deeper',
-      icon: '🔬',
-      illustration: [
-        { icon: '🧠', label: 'Research' },
-        { icon: '🏆', label: 'Honours' },
-        { icon: '🌟', label: 'Excellence' },
-      ],
-      points: [
-        'Advanced specialization with research exposure',
-        'Best suited for R&D, academia and top PG programs',
-        'Stand out with an Honours/Research credential',
-      ],
-    },
-  ];
+  const yearDetails = useMemo(
+    () => [
+      {
+        year: 'Year 1',
+        title: 'Certificate – Get Started Quickly',
+        icon: '📚',
+        illustration: [
+          { icon: '📖', label: 'Core Subjects' },
+          { icon: '🔍', label: 'Explore Fields' },
+          { icon: '🎯', label: 'Foundation' },
+        ],
+        points: [
+          'Build a strong foundation with core subjects',
+          'Try electives from different disciplines',
+          'Earn a Certificate with an exit option if needed',
+        ],
+      },
+      {
+        year: 'Year 2',
+        title: 'Diploma – Skill Up & Specialize',
+        icon: '🛠️',
+        illustration: [
+          { icon: '⚡', label: 'Specialize' },
+          { icon: '💼', label: 'Industry Skills' },
+          { icon: '🎓', label: 'Diploma Ready' },
+        ],
+        points: [
+          'Focus tighter on your chosen track',
+          'Add in-demand vocational/industry skills',
+          'Diploma exit option to start working earlier',
+        ],
+      },
+      {
+        year: 'Year 3',
+        title: "Bachelor's Degree – Career Ready",
+        icon: '🚀',
+        illustration: [
+          { icon: '💻', label: 'Projects' },
+          { icon: '🏢', label: 'Internships' },
+          { icon: '🎖️', label: 'Degree Complete' },
+        ],
+        points: [
+          'Complete a full UG program with projects/internships',
+          'Eligible for most jobs and higher studies',
+          'Exit option available after a recognized degree',
+        ],
+      },
+      {
+        year: 'Year 4',
+        title: 'Honours/Research – Go Deeper',
+        icon: '🔬',
+        illustration: [
+          { icon: '🧠', label: 'Research' },
+          { icon: '🏆', label: 'Honours' },
+          { icon: '🌟', label: 'Excellence' },
+        ],
+        points: [
+          'Advanced specialization with research exposure',
+          'Best suited for R&D, academia and top PG programs',
+          'Stand out with an Honours/Research credential',
+        ],
+      },
+    ],
+    []
+  );
 
   return (
     <div id="nep2020" className="min-h-screen bg-white">
@@ -801,4 +820,4 @@ export function NEP2020() {
       </section>
     </div>
   );
-}
+});

@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, memo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function LandingPage() {
+export const LandingPage = memo(function LandingPage() {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const descRef = useRef(null);
@@ -447,4 +447,4 @@ export function LandingPage() {
       </div>
     </section>
   );
-}
+});

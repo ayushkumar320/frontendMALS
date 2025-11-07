@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, memo } from 'react';
 import logo from '/curriculaflex.png';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-export function TopAnimatedLogo() {
+export const TopAnimatedLogo = memo(function TopAnimatedLogo() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -19,13 +19,13 @@ export function TopAnimatedLogo() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     // Bas smooth scroll to top
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-  };
+  }, []);
 
   return (
     <div
@@ -54,4 +54,4 @@ export function TopAnimatedLogo() {
       />
     </div>
   );
-}
+});
