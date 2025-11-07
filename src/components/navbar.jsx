@@ -21,7 +21,7 @@ function Navbar() {
     <>
       {/* Container for both black menu and yellow bar - 30% when open */}
       <div
-        className={`fixed right-0 top-0 h-full z-50 transition-all duration-500 ease-in-out ${
+        className={`fixed right-0 top-0 h-full z-[100] transition-all duration-500 ease-in-out ${
           isOpen ? 'w-[30%]' : 'w-20'
         }`}
       >
@@ -30,22 +30,22 @@ function Navbar() {
           className={`absolute left-0 top-0 h-full bg-black transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
             isOpen
               ? 'w-[calc(100%-80px)] opacity-100 translate-x-0'
-              : 'w-[calc(100%-80px)] opacity-0 -translate-x-full'
+              : 'w-0 opacity-0 -translate-x-full'
           } overflow-hidden`}
         >
           {/* Navigation Links */}
-          <div className="pt-20 pl-8">
+          <div className="pt-20 pl-8 min-w-[200px]">
             <ul className="space-y-6">
               {menuItems.map((item, index) => (
                 <li key={index}>
                   <a
                     href="#"
-                    className="flex items-center gap-2 text-yellow-400 hover:text-yellow-300 transition-colors text-lg font-medium"
+                    className="flex items-center gap-2 text-yellow-400 hover:text-yellow-300 transition-colors text-lg font-medium whitespace-nowrap"
                   >
                     <span>{item}</span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
+                      className="h-4 w-4 flex-shrink-0"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -65,12 +65,12 @@ function Navbar() {
         </div>
 
         {/* Yellow sidebar - always fixed on right */}
-        <div className="absolute right-0 top-0 h-full w-20 bg-yellow-400">
+        <div className="absolute right-0 top-0 h-full w-20 bg-yellow-400 z-10">
           {/* Menu Icon and Text Section */}
           <div className="flex flex-col items-center pt-8">
             <button
               onClick={toggleMenu}
-              className="flex flex-col items-center justify-center w-12 h-12 transition-all duration-300"
+              className="flex flex-col items-center justify-center w-12 h-12 transition-all duration-300 cursor-pointer"
               aria-label="Toggle menu"
             >
               {/* Hamburger to X transition */}
@@ -105,7 +105,7 @@ function Navbar() {
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col gap-6">
             <button
               onClick={() => setIsOpen(true)}
-              className="text-black hover:opacity-70 transition-opacity"
+              className="text-black hover:opacity-70 transition-opacity cursor-pointer"
               aria-label="Home"
             >
               <svg
@@ -125,7 +125,7 @@ function Navbar() {
             </button>
             <button
               onClick={() => setIsOpen(true)}
-              className="text-black hover:opacity-70 transition-opacity"
+              className="text-black hover:opacity-70 transition-opacity cursor-pointer"
               aria-label="Information"
             >
               <svg
@@ -145,7 +145,7 @@ function Navbar() {
             </button>
             <button
               onClick={() => setIsOpen(true)}
-              className="text-black hover:opacity-70 transition-opacity"
+              className="text-black hover:opacity-70 transition-opacity cursor-pointer"
               aria-label="Search"
             >
               <svg
@@ -171,4 +171,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
