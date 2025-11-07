@@ -21,13 +21,13 @@ function Navbar() {
     <>
       {/* Container for both black menu and yellow bar - 30% when open */}
       <div
-        className={`fixed right-0 top-0 h-full z-[100] transition-all duration-500 ease-in-out ${
+        className={`fixed right-0 top-0 h-full z-100 transition-all duration-500 ease-in-out ${
           isOpen ? 'w-[30%]' : 'w-20'
         }`}
       >
         {/* Black menu area - slides in from left when open */}
         <div
-          className={`absolute left-0 top-0 h-full bg-black transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+          className={`absolute left-0 top-0 h-full bg-black transition-all duration-700 ease-in-out ${
             isOpen
               ? 'w-[calc(100%-80px)] opacity-100 translate-x-0'
               : 'w-0 opacity-0 -translate-x-full'
@@ -45,7 +45,7 @@ function Navbar() {
                     <span>{item}</span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 flex-shrink-0"
+                      className="h-4 w-4 shrink-0"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -77,9 +77,7 @@ function Navbar() {
               <div className="relative w-8 h-6">
                 <span
                   className={`absolute left-0 top-0 w-full h-0.5 bg-black transition-all duration-300 ${
-                    isOpen
-                      ? 'rotate-45 translate-y-2.5'
-                      : 'translate-y-0'
+                    isOpen ? 'rotate-45 translate-y-2.5' : 'translate-y-0'
                   }`}
                 />
                 <span
@@ -89,9 +87,7 @@ function Navbar() {
                 />
                 <span
                   className={`absolute left-0 top-5 w-full h-0.5 bg-black transition-all duration-300 ${
-                    isOpen
-                      ? '-rotate-45 -translate-y-2.5'
-                      : 'translate-y-0'
+                    isOpen ? '-rotate-45 -translate-y-2.5' : 'translate-y-0'
                   }`}
                 />
               </div>
