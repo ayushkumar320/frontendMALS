@@ -1,1 +1,84 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+/* ChatBot Markdown Styles */
+.chatbot-markdown {
+  line-height: 1.6;
+}
+
+.chatbot-markdown h1,
+.chatbot-markdown h2,
+.chatbot-markdown h3 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.chatbot-markdown h1 {
+  font-size: 1.125rem;
+}
+
+.chatbot-markdown h2 {
+  font-size: 1rem;
+}
+
+.chatbot-markdown h3 {
+  font-size: 0.925rem;
+}
+
+.chatbot-markdown p {
+  margin: 0.25rem 0;
+}
+
+.chatbot-markdown ul,
+.chatbot-markdown ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.chatbot-markdown li {
+  margin: 0.125rem 0;
+}
+
+.chatbot-markdown code {
+  background-color: #fef3c7;
+  color: #92400e;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-family: 'Courier New', monospace;
+}
+
+.chatbot-markdown pre {
+  background-color: #f3f4f6;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+
+.chatbot-markdown pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+.chatbot-markdown strong {
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.chatbot-markdown a {
+  color: #f59e0b;
+  text-decoration: underline;
+}
+
+.chatbot-markdown a:hover {
+  color: #d97706;
+}
+
+.chatbot-markdown blockquote {
+  border-left: 3px solid #fbbf24;
+  padding-left: 1rem;
+  margin: 0.5rem 0;
+  color: #6b7280;
+  font-style: italic;
+}

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, memo } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { useChat } from '../hooks/useChat';
 
 const ChatBot = () => {
@@ -17,11 +18,29 @@ const ChatBot = () => {
     }
   }, [messages]);
 
-  // Focus input when chat opens
+  // Focus input when chat opens and lock body scroll
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
+    if (isOpen) {
+      // Lock body scroll while keeping scrollbar visible
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+      document.body.style.overflow = 'hidden';
+
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    } else {
+      // Unlock body scroll when chat closes
+      document.body.style.paddingRight = '';
+      document.body.style.overflow = '';
     }
+
+    // Cleanup function to ensure scroll is unlocked when component unmounts
+    return () => {
+      document.body.style.paddingRight = '';
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
 
   const handleSubmit = async (e) => {
@@ -90,7 +109,7 @@ const ChatBot = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-28 z-250 w-96 h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border-2 border-yellow-400">
+        <div className="fixed bottom-24 right-28 z-250 w-[500px] h-[700px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border-2 border-yellow-400">
           {/* Header */}
           <div className="bg-linear-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-white p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -192,15 +211,73 @@ const ChatBot = () => {
                     <div
                       className={`max-w-[80%] p-3 rounded-2xl ${
                         message.sender === 'user'
-                          ? 'bg-linear-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-white'
+                          ? 'bg-white text-gray-800 border-2 border-yellow-500 shadow-sm'
                           : message.isError
                             ? 'bg-red-100 text-red-800 border border-red-300'
                             : 'bg-white text-gray-800 border border-gray-200 shadow-sm'
                       }`}
                     >
-                      <p className="text-sm whitespace-pre-wrap">
-                        {message.text}
-                      </p>
+                      {message.sender === 'bot' ? (
+                        <ReactMarkdown
+                          components={{
+                            p: ({ children }) => (
+                              <p className="text-sm whitespace-pre-wrap mb-2 last:mb-0">
+                                {children}
+                              </p>
+                            ),
+                            ul: ({ children }) => (
+                              <ul className="list-disc list-inside text-sm mb-2">
+                                {children}
+                              </ul>
+                            ),
+                            ol: ({ children }) => (
+                              <ol className="list-decimal list-inside text-sm mb-2">
+                                {children}
+                              </ol>
+                            ),
+                            li: ({ children }) => (
+                              <li className="ml-2">{children}</li>
+                            ),
+                            code: ({ inline, children }) =>
+                              inline ? (
+                                <code className="bg-gray-200 px-1 rounded text-xs">
+                                  {children}
+                                </code>
+                              ) : (
+                                <code className="block bg-gray-200 p-2 rounded text-xs my-2 overflow-x-auto">
+                                  {children}
+                                </code>
+                              ),
+                            strong: ({ children }) => (
+                              <strong className="font-bold">{children}</strong>
+                            ),
+                            em: ({ children }) => (
+                              <em className="italic">{children}</em>
+                            ),
+                            h1: ({ children }) => (
+                              <h1 className="text-lg font-bold mb-2">
+                                {children}
+                              </h1>
+                            ),
+                            h2: ({ children }) => (
+                              <h2 className="text-base font-bold mb-2">
+                                {children}
+                              </h2>
+                            ),
+                            h3: ({ children }) => (
+                              <h3 className="text-sm font-bold mb-2">
+                                {children}
+                              </h3>
+                            ),
+                          }}
+                        >
+                          {message.text}
+                        </ReactMarkdown>
+                      ) : (
+                        <p className="text-sm whitespace-pre-wrap">
+                          {message.text}
+                        </p>
+                      )}
                       {message.isError && (
                         <button
                           onClick={retryLastMessage}
