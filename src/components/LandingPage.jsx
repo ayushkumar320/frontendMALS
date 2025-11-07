@@ -55,11 +55,13 @@ export function LandingPage() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-8 py-20">
+      <div className="relative z-50 container mx-auto px-8 py-20 mt-8">
         <div className="max-w-3xl">
-          <h1 className="text-6xl font-serif mb-4">CurriculaFlex</h1>
+          <h1 className="text-6xl font-serif mb-4 text-gray-900">
+            CurriculaFlex
+          </h1>
 
-          <h2 className="text-5xl md:text-6xl font-serif mb-12 leading-tight">
+          <h2 className="text-5xl md:text-6xl font-serif mb-12 leading-tight text-gray-900">
             Not For Oneself But For All
           </h2>
 

@@ -8,7 +8,7 @@ function App() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-transparent block">
         <TopAnimatedLogo />
       </header>
-      <main className="pt-24">
+      <main className="pt-40">
         <LandingPage />
       </main>
     </div>
