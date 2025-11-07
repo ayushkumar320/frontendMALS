@@ -19,6 +19,7 @@ export function NEP2020() {
   const degreeSectionRef = useRef(null);
   const yearCardRefs = useRef([]);
   const yearDetailRefs = useRef([]);
+  const yearIllustrationRefs = useRef([]);
   const benefitsSectionRef = useRef(null);
 
   useEffect(() => {
@@ -253,6 +254,7 @@ export function NEP2020() {
       if (degreeSectionRef.current) {
         const cards = yearCardRefs.current.filter(Boolean);
         const details = yearDetailRefs.current.filter(Boolean);
+        const illustrations = yearIllustrationRefs.current.filter(Boolean);
 
         if (cards.length === 4 && details.length === 4) {
           // Set initial states
@@ -269,6 +271,10 @@ export function NEP2020() {
 
           gsap.set(details.slice(1), { opacity: 0, y: 15 });
           gsap.set(details[0], { opacity: 1, y: 0 });
+
+          // Set initial states for illustrations
+          gsap.set(illustrations.slice(1), { opacity: 0, scale: 0.8, y: 20 });
+          gsap.set(illustrations[0], { opacity: 1, scale: 1, y: 0 });
 
           // Create ScrollTrigger with pin
           ScrollTrigger.create({
@@ -319,6 +325,26 @@ export function NEP2020() {
                   gsap.to(detail, { opacity: 1, y: 0, duration: 0.3 });
                 } else {
                   gsap.to(detail, { opacity: 0, y: 15, duration: 0.3 });
+                }
+              });
+
+              // Animate illustrations
+              illustrations.forEach((illustration, i) => {
+                if (i === activeIndex) {
+                  gsap.to(illustration, {
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    duration: 0.4,
+                    ease: 'back.out(1.2)',
+                  });
+                } else {
+                  gsap.to(illustration, {
+                    opacity: 0,
+                    scale: 0.8,
+                    y: 20,
+                    duration: 0.3,
+                  });
                 }
               });
             },
@@ -385,6 +411,12 @@ export function NEP2020() {
     {
       year: 'Year 1',
       title: 'Certificate – Get Started Quickly',
+      icon: '📚',
+      illustration: [
+        { icon: '📖', label: 'Core Subjects' },
+        { icon: '🔍', label: 'Explore Fields' },
+        { icon: '🎯', label: 'Foundation' },
+      ],
       points: [
         'Build a strong foundation with core subjects',
         'Try electives from different disciplines',
@@ -394,6 +426,12 @@ export function NEP2020() {
     {
       year: 'Year 2',
       title: 'Diploma – Skill Up & Specialize',
+      icon: '🛠️',
+      illustration: [
+        { icon: '⚡', label: 'Specialize' },
+        { icon: '💼', label: 'Industry Skills' },
+        { icon: '🎓', label: 'Diploma Ready' },
+      ],
       points: [
         'Focus tighter on your chosen track',
         'Add in-demand vocational/industry skills',
@@ -403,6 +441,12 @@ export function NEP2020() {
     {
       year: 'Year 3',
       title: "Bachelor's Degree – Career Ready",
+      icon: '🚀',
+      illustration: [
+        { icon: '💻', label: 'Projects' },
+        { icon: '🏢', label: 'Internships' },
+        { icon: '🎖️', label: 'Degree Complete' },
+      ],
       points: [
         'Complete a full UG program with projects/internships',
         'Eligible for most jobs and higher studies',
@@ -412,6 +456,12 @@ export function NEP2020() {
     {
       year: 'Year 4',
       title: 'Honours/Research – Go Deeper',
+      icon: '🔬',
+      illustration: [
+        { icon: '🧠', label: 'Research' },
+        { icon: '🏆', label: 'Honours' },
+        { icon: '🌟', label: 'Excellence' },
+      ],
       points: [
         'Advanced specialization with research exposure',
         'Best suited for R&D, academia and top PG programs',
@@ -616,7 +666,7 @@ export function NEP2020() {
               ref={degreeSectionRef}
               className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"
             >
-              <div className="relative min-h-[360px]">
+              <div className="relative min-h-[360px] pt-8">
                 <h2
                   ref={benefitsTitleRef}
                   className="text-5xl font-serif font-bold text-gray-900 mb-6"
@@ -641,7 +691,7 @@ export function NEP2020() {
                       <h3 className="text-2xl font-bold text-gray-900 mb-4">
                         {d.title}
                       </h3>
-                      <ul className="space-y-2">
+                      <ul className="space-y-2 mb-6">
                         {d.points.map((p) => (
                           <li
                             key={p}
@@ -654,6 +704,34 @@ export function NEP2020() {
                           </li>
                         ))}
                       </ul>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Minimalistic pictorial representations */}
+                <div className="relative mt-16 h-[120px] pt-8">
+                  {yearDetails.map((d, i) => (
+                    <div
+                      key={`illustration-${d.year}`}
+                      ref={(el) => (yearIllustrationRefs.current[i] = el)}
+                      className="absolute inset-0 flex justify-center items-center"
+                    >
+                      <div className="flex gap-8 items-center">
+                        {d.illustration.map((item, idx) => (
+                          <div
+                            key={`${item.label}-${idx}`}
+                            className="flex flex-col items-center group cursor-pointer"
+                            style={{ animationDelay: `${idx * 0.1}s` }}
+                          >
+                            <div className="text-4xl mb-2 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
+                              {item.icon}
+                            </div>
+                            <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                              {item.label}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
