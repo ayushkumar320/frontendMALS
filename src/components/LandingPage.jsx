@@ -124,11 +124,12 @@ export const LandingPage = memo(function LandingPage() {
             y: 0,
             rotation: index % 2 === 0 ? -6 : 6,
             duration: 1,
+            ease: 'power2.out',
             scrollTrigger: {
               trigger: card,
               start: 'top bottom',
               end: 'bottom top',
-              scrub: 1,
+              toggleActions: 'play none none reverse',
             },
           }
         );
@@ -186,36 +187,45 @@ export const LandingPage = memo(function LandingPage() {
       {/* Top accent bar */}
       <div className="absolute top-0 left-0 right-0 h-2 bg-linear-to-r from-yellow-400 via-yellow-500 to-yellow-600 z-0"></div>
 
-      {/* Decorative Cards with GSAP animations - MORE CARDS FOR FULLER LOOK */}
+      {/* Decorative Cards with GSAP animations - Study-related images */}
 
-      {/* Top row cards */}
+      {/* Card 1: Students in classroom */}
       <div
         ref={(el) => (cardsRef.current[0] = el)}
-        className="absolute top-8 right-[650px] w-56 h-72 transform z-0 transition-all duration-500"
+        className="absolute top-8 right-[650px] w-56 h-72 transform z-0 transition-all duration-500 hover:scale-105 cursor-pointer"
         style={{ perspective: '1000px' }}
       >
         <div
-          className="w-full h-full bg-white rounded-lg shadow-2xl border-8 border-white backdrop-blur-sm bg-opacity-90 transition-transform duration-500"
+          className="w-full h-full bg-white rounded-lg shadow-2xl border-8 border-white transition-transform duration-500 overflow-hidden hover:rotate-y-6 hover:rotate-x-3"
           style={{ transformStyle: 'preserve-3d' }}
-        ></div>
+        >
+          <img
+            src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=300&h=400&fit=crop"
+            alt="Books and study materials"
+            className="w-full h-full object-cover"
+          />
+        </div>
       </div>
 
+      {/* Card 2: Conference/Group study */}
       <div
         ref={(el) => (cardsRef.current[1] = el)}
         className="absolute top-16 right-96 w-48 h-32 transform z-10 cursor-pointer transition-all duration-500 hover:scale-105"
         style={{ perspective: '1000px' }}
       >
         <div
-          className="relative w-full h-full bg-yellow-400 rounded-lg shadow-2xl overflow-hidden border-8 border-white flex items-center justify-center transition-transform duration-500 hover:rotate-y-12 hover:rotate-x-5"
+          className="relative w-full h-full bg-white rounded-lg shadow-2xl overflow-hidden border-8 border-white transition-transform duration-500 hover:rotate-y-12 hover:rotate-x-5"
           style={{ transformStyle: 'preserve-3d' }}
         >
-          <span className="text-white text-lg font-bold tracking-wider">
-            SUPPORT US
-          </span>
+          <img
+            src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=250&h=180&fit=crop"
+            alt="Students in conference"
+            className="w-full h-full object-cover"
+          />
         </div>
       </div>
 
-      {/* News Card - Woman at desk */}
+      {/* Card 3: Lecture hall */}
       <div
         ref={(el) => (cardsRef.current[2] = el)}
         className="absolute top-32 right-72 w-64 h-64 transform z-20 cursor-pointer transition-all duration-500 hover:scale-105"
@@ -226,36 +236,32 @@ export const LandingPage = memo(function LandingPage() {
           style={{ transformStyle: 'preserve-3d' }}
         >
           <img
-            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop"
-            alt="News"
+            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=350&h=350&fit=crop"
+            alt="Classroom lecture"
             className="w-full h-full object-cover"
           />
-          <div className="absolute bottom-0 left-0 right-0 bg-yellow-400 p-2">
-            <span className="text-white text-base font-bold tracking-wider">
-              NEWS
-            </span>
-          </div>
         </div>
       </div>
 
-      {/* Additional small accent card */}
+      {/* Card 4: Students collaborating */}
       <div
         ref={(el) => (cardsRef.current[3] = el)}
         className="absolute top-24 right-[500px] w-40 h-40 transform z-5 cursor-pointer transition-all duration-500 hover:scale-105"
         style={{ perspective: '1000px' }}
       >
         <div
-          className="relative w-full h-full bg-linear-to-br from-yellow-300 to-yellow-500 rounded-lg shadow-xl border-4 border-white flex items-center justify-center transition-transform duration-500 hover:rotate-y-12 hover:rotate-x-5"
+          className="relative w-full h-full bg-white rounded-lg shadow-xl border-4 border-white overflow-hidden transition-transform duration-500 hover:rotate-y-12 hover:rotate-x-5"
           style={{ transformStyle: 'preserve-3d' }}
         >
-          <div className="text-white text-center">
-            <div className="text-3xl font-bold">2024</div>
-            <div className="text-xs">LEARN</div>
-          </div>
+          <img
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=200&h=200&fit=crop"
+            alt="Group study"
+            className="w-full h-full object-cover"
+          />
         </div>
       </div>
 
-      {/* Library/Student Card */}
+      {/* Card 5: Library/Students studying */}
       <div
         ref={(el) => (cardsRef.current[4] = el)}
         className="absolute top-80 right-80 w-72 h-80 transform z-15 cursor-pointer transition-all duration-500 hover:scale-105"
@@ -266,70 +272,82 @@ export const LandingPage = memo(function LandingPage() {
           style={{ transformStyle: 'preserve-3d' }}
         >
           <img
-            src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=400&h=500&fit=crop"
-            alt="Library"
+            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=500&fit=crop"
+            alt="Students in library"
             className="w-full h-full object-cover"
           />
         </div>
       </div>
 
-      {/* Empty Card (bottom left) */}
+      {/* Card 6: Presentation/Workshop */}
       <div
         ref={(el) => (cardsRef.current[5] = el)}
-        className="absolute bottom-32 right-[550px] w-60 h-80 transform z-5 transition-all duration-500"
+        className="absolute bottom-32 right-[550px] w-60 h-80 transform z-5 transition-all duration-500 hover:scale-105 cursor-pointer"
         style={{ perspective: '1000px' }}
       >
         <div
-          className="w-full h-full bg-linear-to-br from-white to-gray-100 rounded-lg shadow-2xl border-8 border-white transition-transform duration-500"
+          className="w-full h-full bg-white rounded-lg shadow-2xl border-8 border-white transition-transform duration-500 overflow-hidden hover:rotate-y-6 hover:rotate-x-3"
           style={{ transformStyle: 'preserve-3d' }}
-        ></div>
+        >
+          <img
+            src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=450&fit=crop"
+            alt="Business presentation"
+            className="w-full h-full object-cover"
+          />
+        </div>
       </div>
 
-      {/* Empty Card (far right) */}
+      {/* Card 7: Students with laptops */}
       <div
         ref={(el) => (cardsRef.current[6] = el)}
-        className="absolute top-64 right-20 w-52 h-64 transform z-5 transition-all duration-500"
+        className="absolute top-64 right-20 w-52 h-64 transform z-5 transition-all duration-500 hover:scale-105 cursor-pointer"
         style={{ perspective: '1000px' }}
       >
         <div
-          className="w-full h-full bg-white rounded-lg shadow-2xl border-8 border-white transition-transform duration-500"
+          className="w-full h-full bg-white rounded-lg shadow-2xl border-8 border-white transition-transform duration-500 overflow-hidden hover:rotate-y-6 hover:rotate-x-3"
           style={{ transformStyle: 'preserve-3d' }}
-        ></div>
+        >
+          <img
+            src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=300&h=350&fit=crop"
+            alt="Students with laptops"
+            className="w-full h-full object-cover"
+          />
+        </div>
       </div>
 
-      {/* Additional decorative card - bottom right corner */}
+      {/* Card 8: Study group discussion */}
       <div
         ref={(el) => (cardsRef.current[7] = el)}
         className="absolute bottom-48 right-32 w-48 h-48 transform z-10 cursor-pointer transition-all duration-500 hover:scale-105"
         style={{ perspective: '1000px' }}
       >
         <div
-          className="relative w-full h-full bg-linear-to-tr from-blue-400 to-blue-600 rounded-lg shadow-xl border-6 border-white flex items-center justify-center transition-transform duration-500 hover:rotate-y-12 hover:rotate-x-5"
+          className="relative w-full h-full bg-white rounded-lg shadow-xl border-6 border-white overflow-hidden transition-transform duration-500 hover:rotate-y-12 hover:rotate-x-5"
           style={{ transformStyle: 'preserve-3d' }}
         >
-          <div className="text-white text-center">
-            <div className="text-4xl mb-2">📚</div>
-            <div className="text-sm font-semibold">RESOURCES</div>
-          </div>
+          <img
+            src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=250&h=250&fit=crop"
+            alt="Study group"
+            className="w-full h-full object-cover"
+          />
         </div>
       </div>
 
-      {/* Stats badge */}
+      {/* Card 9: Lecture/Seminar */}
       <div
         ref={(el) => (cardsRef.current[8] = el)}
         className="absolute top-56 right-[450px] w-44 h-44 transform z-15 cursor-pointer transition-all duration-500 hover:scale-105"
         style={{ perspective: '1000px' }}
       >
         <div
-          className="relative w-full h-full bg-white rounded-full shadow-xl border-6 border-yellow-400 flex items-center justify-center transition-transform duration-500 hover:rotate-y-12 hover:rotate-x-5"
+          className="relative w-full h-full bg-white rounded-lg shadow-xl border-6 border-white overflow-hidden transition-transform duration-500 hover:rotate-y-12 hover:rotate-x-5"
           style={{ transformStyle: 'preserve-3d' }}
         >
-          <div className="text-center">
-            <div className="text-yellow-600 text-3xl font-bold">10K+</div>
-            <div className="text-gray-600 text-xs font-semibold mt-1">
-              Students
-            </div>
-          </div>
+          <img
+            src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=220&h=220&fit=crop"
+            alt="Seminar"
+            className="w-full h-full object-cover"
+          />
         </div>
       </div>
 
