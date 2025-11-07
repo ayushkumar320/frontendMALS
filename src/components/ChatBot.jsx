@@ -4,12 +4,19 @@ import { useChat } from '../hooks/useChat';
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [inputMessage, setInputMessage] = useState('');
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
-  const { messages, isLoading, error, sendMessage, retryLastMessage } =
-    useChat();
+  const {
+    messages,
+    isLoading,
+    error,
+    sendMessage,
+    retryLastMessage,
+    clearMessages,
+  } = useChat();
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -43,6 +50,14 @@ const ChatBot = () => {
     };
   }, [isOpen]);
 
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsOpen(false);
+      setIsClosing(false);
+    }, 300); // Match animation duration
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!inputMessage.trim() || isLoading) return;
@@ -70,14 +85,14 @@ const ChatBot = () => {
     <>
       {/* Chat Toggle Button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-28 z-250 bg-linear-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+        onClick={() => (isOpen ? handleClose() : setIsOpen(true))}
+        className="fixed bottom-6 right-28 z-250 bg-linear-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-pointer"
         aria-label="Toggle chat"
       >
         {isOpen ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
+            className="h-6 w-6 transition-transform duration-200"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -92,7 +107,7 @@ const ChatBot = () => {
         ) : (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
+            className="h-6 w-6 transition-transform duration-200"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -109,7 +124,11 @@ const ChatBot = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-28 z-250 w-[500px] h-[700px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border-2 border-yellow-400">
+        <div
+          className={`fixed bottom-24 right-28 z-250 w-[500px] h-[700px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border-2 border-yellow-400 ${
+            isClosing ? 'animate-slideDown' : 'animate-slideUp'
+          }`}
+        >
           {/* Header */}
           <div className="bg-linear-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-white p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -135,8 +154,8 @@ const ChatBot = () => {
               </div>
             </div>
             <button
-              onClick={() => setIsOpen(false)}
-              className="text-white/90 hover:text-white transition-colors"
+              onClick={handleClose}
+              className="text-white/90 hover:text-white transition-colors cursor-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -190,7 +209,7 @@ const ChatBot = () => {
                     <button
                       key={index}
                       onClick={() => handleSuggestedQuestion(question)}
-                      className="w-full text-left px-4 py-2 bg-white rounded-lg text-sm text-gray-700 hover:bg-yellow-50 hover:text-yellow-700 hover:border-yellow-400 transition-colors border-2 border-gray-200"
+                      className="w-full text-left px-4 py-2 bg-white rounded-lg text-sm text-gray-700 hover:bg-yellow-50 hover:text-yellow-700 hover:border-yellow-400 transition-colors border-2 border-gray-200 cursor-pointer"
                     >
                       {question}
                     </button>
@@ -281,7 +300,7 @@ const ChatBot = () => {
                       {message.isError && (
                         <button
                           onClick={retryLastMessage}
-                          className="mt-2 text-xs underline hover:no-underline"
+                          className="mt-2 text-xs underline hover:no-underline cursor-pointer"
                         >
                           Retry
                         </button>
@@ -292,16 +311,21 @@ const ChatBot = () => {
                 {isLoading && (
                   <div className="flex justify-start">
                     <div className="bg-white text-gray-800 p-3 rounded-2xl border border-gray-200 shadow-sm">
-                      <div className="flex space-x-2">
-                        <div className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce"></div>
-                        <div
-                          className="w-2 h-2 bg-yellow-500 rounded-full animate-bounce"
-                          style={{ animationDelay: '0.1s' }}
-                        ></div>
-                        <div
-                          className="w-2 h-2 bg-yellow-600 rounded-full animate-bounce"
-                          style={{ animationDelay: '0.2s' }}
-                        ></div>
+                      <div className="flex items-center space-x-2">
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce"></div>
+                          <div
+                            className="w-2 h-2 bg-yellow-500 rounded-full animate-bounce"
+                            style={{ animationDelay: '0.1s' }}
+                          ></div>
+                          <div
+                            className="w-2 h-2 bg-yellow-600 rounded-full animate-bounce"
+                            style={{ animationDelay: '0.2s' }}
+                          ></div>
+                        </div>
+                        <span className="text-xs text-gray-500 ml-2">
+                          Fetching response...
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -315,6 +339,18 @@ const ChatBot = () => {
           {error && (
             <div className="px-4 py-2 bg-red-50 border-t border-red-200">
               <p className="text-xs text-red-600">{error}</p>
+            </div>
+          )}
+
+          {/* Clear Conversation Button */}
+          {messages.length > 0 && (
+            <div className="px-4 py-2 bg-gray-50 border-t border-gray-200">
+              <button
+                onClick={clearMessages}
+                className="text-xs text-yellow-600 hover:text-yellow-700 font-medium transition-colors cursor-pointer hover:underline"
+              >
+                Clear conversation
+              </button>
             </div>
           )}
 
@@ -336,7 +372,7 @@ const ChatBot = () => {
               <button
                 type="submit"
                 disabled={isLoading || !inputMessage.trim()}
-                className="bg-linear-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-white p-2 rounded-full hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-linear-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-white p-2 rounded-full hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
