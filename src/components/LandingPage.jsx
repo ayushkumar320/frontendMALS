@@ -422,18 +422,6 @@ export function LandingPage() {
               WELCOME TO CURRICULAFLEX
             </button>
             <a
-              href="#nep2020"
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .getElementById('nep2020')
-                  ?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="px-8 py-4 border-2 border-yellow-500 text-yellow-600 font-bold rounded-lg hover:bg-yellow-500 hover:text-white transition-all duration-300 shadow-md inline-block"
-            >
-              LATEST NEWS
-            </a>
-            <a
               href="https://github.com/ayushkumar320/frontendMALS"
               target="_blank"
               rel="noopener noreferrer"
