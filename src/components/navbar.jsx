@@ -37,7 +37,17 @@ function Navbar() {
           <div className="pt-20 pl-8 min-w-[200px]">
             <ul className="space-y-6">
               {menuItems.map((item, index) => (
-                <li key={index}>
+                <li 
+                  key={index}
+                  className={`transition-all duration-500 ease-out ${
+                    isOpen
+                      ? 'opacity-100 translate-x-0'
+                      : 'opacity-0 -translate-x-8'
+                  }`}
+                  style={{
+                    transitionDelay: isOpen ? `${700 + index * 100}ms` : '0ms'
+                  }}
+                >
                   <a
                     href="#"
                     className="flex items-center gap-2 text-yellow-400 hover:text-yellow-300 transition-colors text-lg font-medium whitespace-nowrap"
