@@ -4,6 +4,7 @@ import { LandingPage } from './components/LandingPage';
 import { NoNetwork, useNetworkStatus } from './components/NoNetwork';
 import { NEP2020 } from './components/Nep';
 import Navbar from './components/navbar';
+import { Footer } from './components/Footer';
 
 function App() {
   const isOnline = useNetworkStatus();
@@ -30,6 +31,9 @@ function App() {
         {/* Page 2: NEP 2020 */}
         <NEP2020 />
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
