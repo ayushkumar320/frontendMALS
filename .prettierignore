@@ -1,0 +1,15 @@
+node_modules/
+public/
+dist/
+.vscode/
+*.log
+*.lock
+.env
+*.local
+*.config.js
+*.test.js
+*.spec.js
+coverage/
+.cache/
+.idea/
+*.md
