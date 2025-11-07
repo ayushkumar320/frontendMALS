@@ -534,14 +534,6 @@ export function NEP2020() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-12 bg-gray-900 text-white">
-        <div className="container mx-auto px-6 text-center">
-          <p className="text-lg mb-2">CurriculaFlex</p>
-          <p className="text-gray-400">Learn Your Pace</p>
-        </div>
-      </footer>
     </div>
   );
 }
