@@ -2,7 +2,7 @@ import './App.css';
 import { TopAnimatedLogo } from './components/TopAnimatedLogo';
 import { LandingPage } from './components/LandingPage';
 import { NoNetwork, useNetworkStatus } from './components/NoNetwork';
-
+import { NEP2020 } from './components/Nep';
 function App() {
   const isOnline = useNetworkStatus();
 
@@ -17,6 +17,9 @@ function App() {
       </header>
       <main className="pt-40">
         <LandingPage />
+      </main>
+      <main>
+        <NEP2020 />
       </main>
     </div>
   );
